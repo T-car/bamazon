@@ -1,7 +1,7 @@
 # bamazon
 
 ## Video Example
-https://drive.google.com/file/d/1NRzv_we5uyb_6FisH59hWB1nsAKKihLz/view
+https://drive.google.com/file/d/1ADUflpuelfEA_X-t197jnMk-j2vfV1ll/view
 
 ## Description
 This tool uses a MySQL Database to track inventory of items available for purchase.  The user will type the Product ID and the Quantity to purchase an item.  Once the purchase is complete  the inventory will be updated based on the purchase order quantity.  
@@ -10,29 +10,10 @@ This tool uses a MySQL Database to track inventory of items available for purcha
 To see the current list of inventory use the command line with the below:
 * node bamazon_Customer
 
-* Inventory Example: 
--------------------------------
-
-Product: sunglasses
-ID: 1
-Price: $12.5
--------------------------------
-
-Product: sneakers
-ID: 2
-Price: $5
--------------------------------
-
-Product: water
-ID: 3
-Price: $2.5
--------------------------------
-
 ## Prompts
 The tool will first show the user all of the available products for sale in the store including ID and Price.  The user will then be prompted to select
-* `Item ID from product list`
-* `Quantity of product requested`
-
+* `Item ID`
+* `Quantity`
 
 ## Purchase Confirmation
 Once Product ID and quantity have been selected & the item is in stock bamazon will provide the following information:
