@@ -58,30 +58,61 @@ runSearch();
       )
     //logging user answers
       .then(function(userInput){
-        console.log(userInput)
+        // console.log(userInput)
 
 
         //query the data base for ID input by the user
-      var query = 'SELECT * FROM bamazon_db.products WHERE ?'
-      connection.query(query, {id: userInput.id}, function(error, respsonse){
-        console.log("in query");
+      var query = 'SELECT * FROM bamazon_db.products WHERE ?';
+
+
+      //connect to database to provide response based on inventory
+      connection.query(query, {id: userInput.id}, function(error, response){
+        //REMOVING TESTS
+        // console.log("in query");
+        // console.log(response);
+
+
         //to determine if quantity is in stock to fulfill client order
-      if (answer.quantity <= respsonse[0].quantity){
-        console.log("price")
+      if (userInput.quantity <= response[0].quantity){
+        //REMOVING TEST
+        // console.log("TEST item is in stock")
 
+        //Display price if item is in stock
+        var total = userInput.quantity * response[0].price;
+        console.log("Thanks for your order! Your total is: $" +total);
 
-        
+        //Creating variable to update database inventory
+        var remainingInventory = response[0].quantity - userInput.quantity;
+        //REMOVING TEST
+        // console.log("Checking the variable " + remainingInventory);
+
+        //Subtracting remaining quantity from database based on user input 
+        connection.query(
+          "UPDATE bamazon_db.products SET ? WHERE ?",
+          [
+            {
+              quantity: remainingInventory
+            },
+            {
+              id: userInput.id
+            }
+          ],
+          function(error) {
+            if (error) throw err;
+            console.log("Our inventory has been updated to " + remainingInventory + " left in stock");
+            runSearch();
+          }
+        );
+
       }
       //if not enough stock is available return out of stock message to user
       else {
-        console.log("Out of Stock")
+        console.log("Not enough stock to complete your order. Please select a new item or quantity")
+        runSearch()
 
-        }
+          }
         })
-      
-
       });
-
-      }
+    }
 
 
